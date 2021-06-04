@@ -1,7 +1,8 @@
 package com.edson.acompanharatividadesapi.model;
 
 import java.io.Serializable;
-import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,13 +26,12 @@ public class Atividade implements Serializable
   private String nome;
 
   @Column(name = "data_termino")
-  @Temporal(TemporalType.DATE)
-  private Date dataTermino;
+  private String dataTermino;
 
   @Column(name = "finalizado")
   private Boolean finalizado;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.PERSIST)
   @JsonIgnore
   @JoinColumn(name = "grupo")
   private Grupo grupo;
@@ -60,6 +58,22 @@ public class Atividade implements Serializable
 
   public void setGrupo(Grupo grupo) {
     this.grupo = grupo;
+  }
+
+  public String getDataTermino() {
+    return dataTermino;
+  }
+
+  public void setDataTermino(String dataTermino) {
+    this.dataTermino = dataTermino;
+  }
+
+  public Boolean getFinalizado() {
+    return finalizado;
+  }
+
+  public void setFinalizado(Boolean finalizado) {
+    this.finalizado = finalizado;
   }
 
   

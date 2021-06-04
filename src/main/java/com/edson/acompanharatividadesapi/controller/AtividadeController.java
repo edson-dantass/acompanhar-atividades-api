@@ -5,6 +5,8 @@ import com.edson.acompanharatividadesapi.repository.AtividadeRepository;
 import com.edson.acompanharatividadesapi.repository.GrupoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +24,11 @@ public class AtividadeController {
   @Autowired
   GrupoRepository grupoRepository;
 
+  @GetMapping(value = "/atividade/{id}")
+  public Atividade show(@PathVariable(value = "id") Long id) {
+    return atividadeRepository.findById(id).orElse(new Atividade());
+  }
+
   @PostMapping(value = "/atividade/{id}")
   public Atividade create(@RequestBody Atividade atividade, @PathVariable(value = "id") Long id) {
 
@@ -31,4 +38,10 @@ public class AtividadeController {
     
     return atividadeRepository.save(atividade);
   }
+  
+  @DeleteMapping(value = "/atividade/{id}")
+  public void destroy(@PathVariable(value = "id") Long id) {
+    atividadeRepository.deleteById(id);
+  }
+ 
 }
