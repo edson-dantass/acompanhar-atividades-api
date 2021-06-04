@@ -1,7 +1,7 @@
 package com.edson.acompanharatividadesapi.model;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+
 import javax.persistence.GenerationType;
 
 @Entity
@@ -19,15 +21,15 @@ public class Grupo implements Serializable
 {
   
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private long id;
 
   @Column(name = "nome")
   private String nome;
 
-  @OneToMany(mappedBy = "grupo", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @Column(name = "atividade")
-  private Set<Atividade> atividade;
+  @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+  private List<Atividade> atividades;
 
   public long getId() {
     return id;
@@ -45,12 +47,12 @@ public class Grupo implements Serializable
     this.nome = nome;
   }
 
-  public Set<Atividade> getAtividade() {
-    return atividade;
+  public List<Atividade> getAtividade() {
+    return atividades;
   }
 
-  public void setAtividade(Set<Atividade> atividade) {
-    this.atividade = atividade;
+  public void setAtividade(List<Atividade> atividades) {
+    this.atividades = atividades;
   }
 
 }

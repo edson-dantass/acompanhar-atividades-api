@@ -2,7 +2,6 @@ package com.edson.acompanharatividadesapi.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,12 +13,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "atividades")
 public class Atividade implements Serializable
 {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
   @Column(name = "nome", length = 100)
@@ -33,7 +34,8 @@ public class Atividade implements Serializable
   private Boolean finalizado;
 
   @ManyToOne
-  @JoinColumn(name = "grupo_id")
+  @JsonIgnore
+  @JoinColumn(name = "grupo")
   private Grupo grupo;
 
   public Long getId() {
