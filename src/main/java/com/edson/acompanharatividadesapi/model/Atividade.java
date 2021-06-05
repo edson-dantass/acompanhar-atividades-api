@@ -1,10 +1,10 @@
 package com.edson.acompanharatividadesapi.model;
 
 import java.io.Serializable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,9 +31,9 @@ public class Atividade implements Serializable
   @Column(name = "finalizado")
   private Boolean finalizado;
 
-  @ManyToOne(cascade = CascadeType.PERSIST)
+  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JsonIgnore
-  @JoinColumn(name = "grupo")
+  @JoinColumn(name = "grupo", nullable = false )
   private Grupo grupo;
 
   public Long getId() {
